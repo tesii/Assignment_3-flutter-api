@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_api/HomePage.dart';
 import 'package:flutter/material.dart';
-
-import 'signup.dart';
+import 'package:flutter_api/HomePage.dart';
+import 'package:flutter_api/Signup.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'Home.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -11,83 +12,102 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Future<void> _login() async {
+  Future<void> _loginWithEmailPassword() async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
       );
-      // Login successful
+
+      // Navigate to HomeScreen if login is successful
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => Home()),
       );
     } on FirebaseAuthException catch (e) {
-      String errorMessage;
-      if (e.code == 'user-not-found') {
-        errorMessage = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        errorMessage = 'Wrong password provided.';
-      } else {
-        errorMessage = 'An error occurred. Please try again.';
-      }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
+        SnackBar(content: Text(e.message ?? 'An error occurred. Please try again.')),
+      );
+    }
+  }
+
+  Future<void> _loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth?.idToken,
+        accessToken: googleAuth?.accessToken,
+      );
+
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+      // Navigate to HomeScreen if login is successful
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? 'An error occurred. Please try again.')),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.blueAccent,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-                  const Text(
-                    'Login to Your Account',
-                    style: TextStyle(fontSize: 24, color: Colors.white, height: 10),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: _buildEmailTextField(),
-                  ),
-                  SizedBox(height: 30),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: _buildPasswordTextField(),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _login,
-                    child: const Text('Login', style: TextStyle(fontSize: 18)),
-                  ),
-                  const SizedBox(height: 40),
-                  const Text(
-                    "Don't have an account?",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Signup()),
-                      );
-                    },
-                    child: const Text('Sign Up', style: TextStyle(color: Colors.white)),
-                  ),
-                ],
+    return Scaffold(
+      backgroundColor: Colors.blueAccent,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+              const Text(
+                'Login to Your Account',
+                style: TextStyle(fontSize: 24, color: Colors.white, height: 10),
               ),
-            ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: _buildEmailTextField(),
+              ),
+              SizedBox(height: 30),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: _buildPasswordTextField(),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _loginWithEmailPassword,
+                child: const Text('Login', style: TextStyle(fontSize: 18)),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: _loginWithGoogle,
+                child: const Text('Google', style: TextStyle(fontSize: 20)),
+              ),
+              const SizedBox(height: 40),
+              const Text(
+                "Don't have an account?",
+                style: TextStyle(color: Colors.white),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Signup()),
+                  );
+                },
+                child: const Text('Sign Up', style: TextStyle(color: Colors.white)),
+              ),
+            ],
           ),
         ),
       ),
