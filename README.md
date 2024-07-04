@@ -1,16 +1,30 @@
-# flutter_api
+24123
+kabatesi patience
 
-A new Flutter project.
+Signup
+======
 
-## Getting Started
+![image](https://github.com/tesii/flutter-api/assets/130172829/239e026f-0042-4dc9-873e-b46ad0619f32)
 
-This project is a starting point for a Flutter application.
+After signup
+============
+![image](https://github.com/tesii/flutter-api/assets/130172829/705f2a9d-b769-4d4e-8166-727760589e62)
+Login
+=====
+![image](https://github.com/tesii/flutter-api/assets/130172829/0a88d10d-6da5-4e9d-8504-24d755a921f8)
+Authentication API
+===================
+![image](https://github.com/tesii/flutter-api/assets/130172829/d5d87264-539a-492c-a274-053630cf996e)
+ Internet connectivity BroadcastReceiver
+ =======================================
+![image](https://github.com/tesii/flutter-api/assets/130172829/ec709f0b-babb-40bd-9c49-b31fe041dd14)
+ battery BroadcastReceiver
+ ========================
+![image](https://github.com/tesii/flutter-api/assets/130172829/6656a67e-e63a-486f-8948-5694fd088668)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
