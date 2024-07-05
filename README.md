@@ -10,6 +10,7 @@ Signup
 
 After signup
 ============
+A message is displayed
 
 ![image](https://github.com/tesii/flutter-api/assets/130172829/705f2a9d-b769-4d4e-8166-727760589e62)
 
