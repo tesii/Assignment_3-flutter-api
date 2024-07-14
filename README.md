@@ -48,10 +48,10 @@ Implement Shared Preferences: Implement Light and Dark Mode
 Light Mode
 ----------
 
+
+
+
 ![Uploading image.png…]()
-
-
-
 
 
 
