@@ -44,14 +44,15 @@ Implement Shared Preferences: Implement Light and Dark Mode
 
 ![image](https://github.com/user-attachments/assets/a4ec405f-4a62-458b-8e61-f905fb06539a)
 
-
 Light Mode
 ----------
 
 
+![image](https://github.com/user-attachments/assets/b4161d21-a658-40aa-969b-2e807d95a31d)
 
 
-![Uploading image.png…]()
+
+
 
 
 
