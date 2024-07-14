@@ -36,6 +36,19 @@ Authentication API
  
 ![image](https://github.com/tesii/flutter-api/assets/130172829/6656a67e-e63a-486f-8948-5694fd088668)
 
+Implement Shared Preferences: Implement Light and Dark Mode
+------------------------------------------------------------
+
+ Dark Mode
+ ---------
+
+![image](https://github.com/user-attachments/assets/a4ec405f-4a62-458b-8e61-f905fb06539a)
+
+
+Light Mode
+----------
+
+![Uploading image.png…]()
 
 
 
